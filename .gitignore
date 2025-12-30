@@ -1,0 +1,33 @@
+# Ignore intermediate markdown files (tutorial drafts)
+*.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model weights/checkpoints (if any)
+*.pt
+*.pth
+*.ckpt
+
