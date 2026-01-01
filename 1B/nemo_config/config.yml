@@ -1,0 +1,37 @@
+# NeMo Guardrails Configuration
+# This config uses Ollama via OpenAI-compatible API
+
+models:
+  - type: main
+    engine: openai
+    model: qwen3:4b
+    parameters:
+      openai_api_base: http://localhost:11434/v1
+      openai_api_key: ollama
+
+# General instructions for the bot
+instructions:
+  - type: general
+    content: |
+      You are a helpful customer support assistant for TechCorp.
+      You can only answer questions about TechCorp products and provide support.
+      You must refuse to discuss: politics, illegal activities, personal opinions.
+      Keep responses concise and professional.
+      If you don't know something, say so honestly.
+
+# Sample documents (optional - for knowledge grounding)
+sample_conversation: |
+  user "Hi there!"
+    express greeting
+  bot "Hello! Welcome to TechCorp support. How can I help you today?"
+    express greeting
+
+# Enable/disable built-in rails
+rails:
+  input:
+    flows:
+      - self check input
+  output:
+    flows:
+      - self check output
+
