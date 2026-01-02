@@ -1,5 +1,20 @@
+# =============================================================================
 # Custom Prompts for NeMo Guardrails
-# These override default prompts for safety checks
+# =============================================================================
+#
+# USE CASES:
+#   1. Self-check input - Block jailbreaks, off-topic, harmful requests
+#   2. Self-check output - Filter harmful/biased responses
+#   3. General prompt - Set overall bot behavior and personality
+#
+# WHEN TO CUSTOMIZE:
+#   - Domain-specific policies (legal, healthcare, finance)
+#   - Brand voice and tone
+#   - Specific content restrictions
+#
+# NOTE: self_check_input/output require capable models (GPT-4, Claude)
+#       With small models, these may produce false positives
+# =============================================================================
 
 prompts:
   # Self-check input prompt - checks user messages for harmful content

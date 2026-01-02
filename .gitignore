@@ -1,5 +1,6 @@
 # Ignore intermediate markdown files (tutorial drafts)
 *.md
+!1B/siso-production-guide.md
 
 # Python
 __pycache__/

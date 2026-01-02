@@ -1,5 +1,24 @@
+# =============================================================================
 # NeMo Guardrails Configuration
-# This config uses Ollama via OpenAI-compatible API
+# =============================================================================
+#
+# USE CASES FOR NEMO GUARDRAILS:
+#   1. Customer support bots - topic control, jailbreak prevention
+#   2. Enterprise chatbots - data sovereignty, conversation flow
+#   3. Regulated industries - audit trails, consistent responses
+#   4. Multi-turn dialogs - state management, guided workflows
+#
+# WHEN TO USE:
+#   ✓ Need conversation-level control (not just output validation)
+#   ✓ Want declarative dialog flows (Colang)
+#   ✓ Building chatbots with strict topic boundaries
+#   ✓ Need jailbreak/injection protection
+#
+# WHEN NOT TO USE:
+#   ✗ Simple structured output (use Instructor instead)
+#   ✗ Field-level validation only (use Guardrails AI)
+#   ✗ Latency-critical applications (adds overhead)
+# =============================================================================
 
 models:
   - type: main
@@ -8,8 +27,11 @@ models:
     parameters:
       openai_api_base: http://localhost:11434/v1
       openai_api_key: ollama
+    # PRODUCTION OPTIONS:
+    #   model: gpt-4o-mini          # OpenAI - fast, capable
+    #   model: claude-3-haiku       # Anthropic - fast
+    #   model: claude-3-sonnet      # Anthropic - best for self-check rails
 
-# General instructions for the bot
 instructions:
   - type: general
     content: |
@@ -19,19 +41,30 @@ instructions:
       Keep responses concise and professional.
       If you don't know something, say so honestly.
 
-# Sample documents (optional - for knowledge grounding)
+# Sample conversation for few-shot learning
 sample_conversation: |
   user "Hi there!"
     express greeting
   bot "Hello! Welcome to TechCorp support. How can I help you today?"
     express greeting
 
-# Enable/disable built-in rails
-rails:
-  input:
-    flows:
-      - self check input
-  output:
-    flows:
-      - self check output
+# =============================================================================
+# RAILS CONFIGURATION
+# =============================================================================
+#
+# Using default mode: Colang flows only (no self-check rails)
+# This uses semantic matching to map user utterances to defined intents
+#
+# NOTE: Default mode makes multiple LLM calls per message:
+#   - Intent detection
+#   - Response generation  
+#   - (Optional) Self-check if enabled
+#
+# For faster responses, enable single_call mode (less accurate):
+#   rails:
+#     dialog:
+#       single_call:
+#         enabled: true
+# =============================================================================
 
+# No explicit rails config = use default Colang flow matching
